@@ -8,6 +8,8 @@ import javax.sql.DataSource;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,6 +50,9 @@ public class DBInitializer implements ServletContextListener {
                 byte[] bytes = new byte[is.available()];
                 is.read(bytes);
                 String sqlScript = new String(bytes);
+
+//                Files.readAllLines(Paths.get(this.getClass().getResource("/db-script.sql").toURI()))
+//                        .stream().reduce((s, s2) -> s+=s2).get()
 
                 stm.execute(sqlScript);
             }
