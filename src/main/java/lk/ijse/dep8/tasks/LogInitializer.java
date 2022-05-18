@@ -57,6 +57,7 @@ public class LogInitializer implements ServletContextListener {
 
             final String path = logDirPath.toAbsolutePath().toString();
             installFileHandler(getPath(path));
+            Logger.getLogger("lk.ijse.dep8.tasks").setUseParentHandlers(false);
 
             ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
             executor.scheduleWithFixedDelay(() -> installFileHandler(getPath(path)),
@@ -81,7 +82,7 @@ public class LogInitializer implements ServletContextListener {
         try {
             fileHandler = new FileHandler(path,2 * 1024 * 1024, 20,true);
             fileHandler.setFormatter(fileHandler.getFormatter());
-            fileHandler.setLevel(Logger.getLogger("").getLevel());
+            fileHandler.setLevel(Logger.getLogger("lk.ijse.dep8.tasks").getLevel());
             Logger.getLogger("lk.ijse.dep8.tasks").addHandler(fileHandler);
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
